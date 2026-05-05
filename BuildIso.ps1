@@ -1,3 +1,6 @@
+# Example usage:
+# .\BuildIso.ps1 -SourceIsoPath "C:\ISO\26100.1.240331-1435.ge_release_SERVER_EVAL_x64FRE_en-us.iso" -ISOBuildPath C:\ISOBUILD -DestinationIsoPath C:\ISO\w2025-test.iso -UnattendXmlPath .\ISO\Autounattend.xml -customFilesPath .\ISO\CustomFiles -createISO
+
 [cmdletbinding()]
 param (
     $SourceIsoPath = "C:\ISO\w2025.iso",
@@ -16,7 +19,7 @@ if (-not $createISO) {
         New-Item -ItemType Directory -Path $ISOBuildPath | Out-Null
     } else {
         Write-Host "Cleaning existing build directory..." -ForegroundColor Yellow
-        Get-ChildItem -Path $ISOBuildPath -Recurse | Remove-Item -Force -Confirm:$false
+        Get-ChildItem -Path $ISOBuildPath | Remove-Item -Recurse -Force
     }
 
     # Mount the source ISO
@@ -47,7 +50,7 @@ if (-not $createISO) {
     # Copy unattend.xml to the build directory
     if (Test-Path -Path $UnattendXmlPath) {
         Write-Host "Copying unattend.xml to build directory..." -ForegroundColor Green
-        Copy-Item -Path $UnattendXmlPath -Destination "$ISOBuildPath\unattend.xml" -Force
+        Copy-Item -Path $UnattendXmlPath -Destination "$ISOBuildPath" -Force
     } else {
         Write-Warning "Unattend XML file not found at $UnattendXmlPath. Skipping copy."
     }
