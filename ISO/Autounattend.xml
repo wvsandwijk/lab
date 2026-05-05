@@ -157,11 +157,7 @@
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
-                    <CommandLine>powershell.exe -WindowStyle "Normal" -ExecutionPolicy
-                        "Unrestricted" -NoProfile -Command "Rename-Computer -NewName
-                        (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Virtual
-                        Machine\Guest\Parameters' -Name VirtualMachineName).VirtualMachineName
-                        -Restart"</CommandLine>
+                    <CommandLine>powershell.exe -WindowStyle "Normal" -ExecutionPolicy "Unrestricted" -NoProfile -Command "Rename-Computer -NewName (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\VirtualMachine\Guest\Parameters' -Name VirtualMachineName).VirtualMachineName -Restart"</CommandLine>
                 </SynchronousCommand>
             </FirstLogonCommands>
         </component>
