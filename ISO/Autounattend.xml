@@ -15,7 +15,7 @@
                     <InstallFrom>
                         <MetaData wcm:action="add">
                             <Key>/IMAGE/INDEX</Key>
-                            <Value>1</Value>
+                            <Value>2</Value>
                         </MetaData>
                     </InstallFrom>
                     <InstallTo>
@@ -111,6 +111,14 @@
             publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
             <DoNotOpenServerManagerAtLogon>true</DoNotOpenServerManagerAtLogon>
         </component>
+        <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<RunSynchronous>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>1</Order>
+					<Path>powershell.exe -WindowStyle "Normal" -ExecutionPolicy "Unrestricted" -NoProfile -Command "Rename-Computer -NewName (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\VirtualMachine\Guest\Parameters' -Name VirtualMachineName).VirtualMachineName -Restart"</Path>
+				</RunSynchronousCommand>
+			</RunSynchronous>
+		</component>
     </settings>
     <settings pass="oobeSystem">
         <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64"
@@ -123,28 +131,32 @@
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64"
             publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
             <UserAccounts>
+                <AdministratorPassword>
+					<Value>UABAAHMAcwB3ADAAcgBkADcAMQBBAGQAbQBpAG4AaQBzAHQAcgBhAHQAbwByAFAAYQBzAHMAdwBvAHIAZAA=</Value>
+					<PlainText>false</PlainText>
+				</AdministratorPassword>
                 <LocalAccounts>
                     <LocalAccount wcm:action="add">
                         <Password>
                             <Value>UABAAHMAcwB3ADAAcgBkADcAMQBQAGEAcwBzAHcAbwByAGQA</Value>
                             <PlainText>false</PlainText>
                         </Password>
-                        <Description>Administrator</Description>
-                        <DisplayName>Administrator</DisplayName>
+                        <Description>AnsibleAdmin</Description>
+                        <DisplayName>AnsibleAdmin</DisplayName>
                         <Group>Administrators</Group>
-                        <Name>Administrator</Name>
+                        <Name>AnsibleAdmin</Name>
                     </LocalAccount>
                 </LocalAccounts>
             </UserAccounts>
             <AutoLogon>
-				<Username>Administrator</Username>
-				<Enabled>true</Enabled>
-				<LogonCount>1</LogonCount>
-				<Password>
-					<Value>UABAAHMAcwB3ADAAcgBkADcAMQBQAGEAcwBzAHcAbwByAGQA</Value>
-					<PlainText>false</PlainText>
-				</Password>
-			</AutoLogon>
+                <Username>AnsibleAdmin</Username>
+                <Enabled>true</Enabled>
+                <LogonCount>4</LogonCount>
+                <Password>
+                    <Value>UABAAHMAcwB3ADAAcgBkADcAMQBQAGEAcwBzAHcAbwByAGQA</Value>
+                    <PlainText>false</PlainText>
+                </Password>
+            </AutoLogon>
             <OOBE>
                 <ProtectYourPC>1</ProtectYourPC>
                 <HideEULAPage>true</HideEULAPage>
@@ -154,12 +166,7 @@
                 <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
             </OOBE>
             <TimeZone>W. Europe Standard Time</TimeZone>
-            <FirstLogonCommands>
-                <SynchronousCommand wcm:action="add">
-                    <Order>1</Order>
-                    <CommandLine>powershell.exe -WindowStyle "Normal" -ExecutionPolicy "Unrestricted" -NoProfile -Command "Rename-Computer -NewName (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\VirtualMachine\Guest\Parameters' -Name VirtualMachineName).VirtualMachineName -Restart"</CommandLine>
-                </SynchronousCommand>
-            </FirstLogonCommands>
+            <FirstLogonCommands />
         </component>
     </settings>
 </unattend>
