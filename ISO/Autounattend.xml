@@ -111,14 +111,6 @@
             publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
             <DoNotOpenServerManagerAtLogon>true</DoNotOpenServerManagerAtLogon>
         </component>
-        <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
-			<RunSynchronous>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>1</Order>
-					<Path>powershell.exe -WindowStyle "Normal" -ExecutionPolicy "Unrestricted" -NoProfile -Command "Rename-Computer -NewName (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\VirtualMachine\Guest\Parameters' -Name VirtualMachineName).VirtualMachineName -Restart"</Path>
-				</RunSynchronousCommand>
-			</RunSynchronous>
-		</component>
     </settings>
     <settings pass="oobeSystem">
         <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64"
@@ -137,14 +129,14 @@
 				</AdministratorPassword>
                 <LocalAccounts>
                     <LocalAccount wcm:action="add">
+                        <Name>AnsibleAdmin</Name>
+                        <Description>AnsibleAdmin</Description>
+                        <DisplayName>AnsibleAdmin</DisplayName>
                         <Password>
                             <Value>UABAAHMAcwB3ADAAcgBkADcAMQBQAGEAcwBzAHcAbwByAGQA</Value>
                             <PlainText>false</PlainText>
                         </Password>
-                        <Description>AnsibleAdmin</Description>
-                        <DisplayName>AnsibleAdmin</DisplayName>
                         <Group>Administrators</Group>
-                        <Name>AnsibleAdmin</Name>
                     </LocalAccount>
                 </LocalAccounts>
             </UserAccounts>
