@@ -150,7 +150,7 @@
                 </Password>
             </AutoLogon>
             <OOBE>
-                <ProtectYourPC>1</ProtectYourPC>
+                <ProtectYourPC>3</ProtectYourPC>
                 <HideEULAPage>true</HideEULAPage>
                 <HideLocalAccountScreen>true</HideLocalAccountScreen>
                 <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
@@ -158,7 +158,13 @@
                 <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
             </OOBE>
             <TimeZone>W. Europe Standard Time</TimeZone>
-            <FirstLogonCommands />
+            <FirstLogonCommands>
+                <SynchronousCommand wcm:action="add">
+                    <Order>1</Order>
+                    <CommandLine>powershell.exe -ExecutionPolicy Bypass -File C:\Windows\Setup\Scripts\FirstLogon.ps1</CommandLine>
+                    <Description>Run FirstLogon.ps1</Description>
+                </SynchronousCommand>
+            </FirstLogonCommands>
         </component>
     </settings>
 </unattend>
