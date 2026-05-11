@@ -2,9 +2,9 @@ $scripts = @(
     {
         # Create event log for automation and write an entry to indicate that the event log was created
 
-        New-Item -Path HKLM:\SOFTWARE\Automation\$EventlogName -Force - ErrorAction 'SilentlyContinue';
-        New-ItemProperty -Path HKLM:\SOFTWARE\Automation\$EventlogName -Name EventLogName -PropertyType String -Value $EventlogName -Force;
-        New-ItemProperty -Path HKLM:\SOFTWARE\Automation\$EventlogName -Name EventSource -PropertyType String -Value $EventSource -Force;
+        New-Item -Path Registry::HKEY_LOCAL_MACHINE\SOFTWARE\$EventSource\$EventlogName -Force - ErrorAction 'SilentlyContinue';
+        New-ItemProperty -Path Registry::HKEY_LOCAL_MACHINE\SOFTWARE\$EventSource\$EventlogName -Name EventLogName -PropertyType String -Value $EventlogName -Force;
+        New-ItemProperty -Path Registry::HKEY_LOCAL_MACHINE\SOFTWARE\$EventSource\$EventlogName -Name EventSource -PropertyType String -Value $EventSource -Force;
         New-EventLog -LogName $EventlogName -Source $EventSource -ErrorAction  'SilentlyContinue';
         Write-EventLog -LogName $EventlogName -Source $EventSource -EntryType Information -EventId 1 -Message "Created eventlog for automation`n`rEventlogname: $eventlogName`r`nEventSource: $EventSource";
     };
@@ -26,7 +26,7 @@ $scripts = @(
 
         if ((Get-CimInstance cim_computersystem).model -match 'Virtual Machine') {
             $currentComputername = $env:COMPUTERNAME
-            $vmname = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Virtual Machine\Guest\Parameters' -Name VirtualMachineName).VirtualMachineName
+            $vmname = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Virtual Machine\Guest\Parameters' -Name VirtualMachineName).VirtualMachineName
             if ($currentComputername -ne $vmname) {
                 Write-EventLog -LogName $EventlogName -Source $EventSource -EntryType Information -EventId 1 -Message "Renaming computer from $currentComputername to $vmname";
                 Rename-Computer -NewName $vmname -restart
@@ -55,7 +55,7 @@ $scripts = @(
     [float]$increment = 100 / $scripts.Count;
     [string]$EventlogName = 'LAWN Automation';
     [string]$EventSource = 'Automation';
-    [string]$SystemEnvironment = 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment';
+    [string]$SystemEnvironment = 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment';
 
     foreach ( $script in $scripts ) {
         Write-Progress -Id 0 -Activity 'Running scripts to finalize your Windows installation. Do not close this window.' -PercentComplete $complete;

@@ -2,7 +2,7 @@ $scripts = @(
     {
         # Set AutoLogonCount to 0 to disable auto logon after first logon
 
-            Set-ItemProperty -LiteralPath 'Registry::HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name 'AutoLogonCount' -Type 'DWord' -Force -Value 0
+            Set-ItemProperty -LiteralPath 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name 'AutoLogonCount' -Type 'DWord' -Force -Value 0
             Write-EventLog -LogName $EventlogName -Source $EventSource -EntryType Information -EventId 1 -Message 'Disabled auto logon'
     };
     {
@@ -48,10 +48,19 @@ $scripts = @(
             Write-EventLog -LogName $EventlogName -Source $EventSource -EntryType Information -EventId 1 -Message 'Added SSH public key to administrators_authorized_keys'
     };
     {
-        # Set Default lockscreen background
+        # Set Default lockscreen background and prevent users from changing it
+            New-item -path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SystemProtectedUserData\S-1-5-18\AnyoneRead\LockScreen' -Force
+            Set-ItemProperty -LiteralPath 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SystemProtectedUserData\S-1-5-18\AnyoneRead\LockScreen' -Name 'GPImagePath_P' -Type 'string' -Value $LockScreenImage -Force
 
-            Set-ItemProperty -LiteralPath 'Registry::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SystemProtectedUserData\S-1-5-18\AnyoneRead\LockScreen' -Name 'AutoLogonCount' -Type 'string' -Value 'C:\ProgramData\LAWN Automation\LAWNAutomationLogonLock.png' -Force
-            Write-EventLog -LogName $EventlogName -Source $EventSource -EntryType Information -EventId 1 -Message 'Set default lockscreen background'
+            New-item -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Force
+            Set-ItemProperty -LiteralPath 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'LockScreenImage' -Type 'string' -Value $LockScreenImage -Force
+            Set-ItemProperty -LiteralPath 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'LockScreenOverlaysDisabled' -Type 'DWord' -Value 1 -Force
+            Set-ItemProperty -LiteralPath 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'NoChangingLockScreen' -Type 'DWord' -Value 1 -Force
+
+            New-item -path 'Registry::HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Policies\System' -Force
+            Set-ItemProperty -LiteralPath 'Registry::HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'WallpaperStyle' -Value 2 -Force
+            Set-ItemProperty -LiteralPath 'Registry::HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'Wallpaper' -Value $LockScreenImage -Force
+            Write-EventLog -LogName $EventlogName -Source $EventSource -EntryType Information -EventId 1 -Message 'Set default lockscreen background and prevented users from changing it'
     };
     {
         # Eject all CD-ROM drives to prevent the system from trying to boot from the installation media on next logon
@@ -74,6 +83,7 @@ $scripts = @(
     [float]$Increment = 100 / $Scripts.Count;
     [String]$EventlogName = $env:AutomationEventLogName;
     [String]$EventSource = $env:AutomationEventSource;
+    [string]$LockScreenImage = '%ProgramData%\LAWN Automation\LAWNAutomationLogonLock.png'
 
     foreach ( $Script in $Scripts ) {
         Write-Progress -Id 0 -Activity 'Running scripts to finalize your Windows installation. Do not close this window.' -PercentComplete $Complete;
