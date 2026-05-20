@@ -127,6 +127,7 @@
             <UserAccounts>
                 <AdministratorPassword>
 					<Value>UABAAHMAcwB3ADAAcgBkADcAMQBBAGQAbQBpAG4AaQBzAHQAcgBhAHQAbwByAFAAYQBzAHMAdwBvAHIAZAA=</Value>
+                           UABAAHMAcwB3ADAAcgBkADcAMQBQAGEAcwBzAHcAbwByAGQA
 					<PlainText>false</PlainText>
 				</AdministratorPassword>
                 <LocalAccounts>
@@ -145,7 +146,7 @@
             <AutoLogon>
                 <Username>Administrator</Username>
                 <Enabled>true</Enabled>
-                <LogonCount>2</LogonCount>
+                <LogonCount>4</LogonCount>
                 <Password>
                     <Value>UABAAHMAcwB3ADAAcgBkADcAMQBQAGEAcwBzAHcAbwByAGQA</Value>
                     <PlainText>false</PlainText>

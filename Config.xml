@@ -1,0 +1,46 @@
+<virtualmachines>
+    <virtualmachine>
+        <name>Win2025-1</name>
+        <SwitchName>LiveNetwork</SwitchName>
+        <vlan>400</vlan>
+        <VMPath>C:\Hyper-V\Win2025-1</VMPath>
+        <disks>
+            <disk>
+                <name>VHD.vhdx</name>
+                <SizeGB>127</SizeGB>
+            </disk>
+        </disks>
+        <cdroms>
+            <cdrom>
+                <name>CD-ROM 1</name>
+                <iso>C:\ISO\w2025-test.iso</iso>
+            </cdrom>
+            <cdrom>
+                <name>CD-ROM 2</name>
+                <iso>C:\ISO\Autounattend_2025.iso</iso>
+            </cdrom>
+        </cdroms>
+    </virtualmachine>
+    <virtualmachine>
+        <name>Win2025-2</name>
+        <SwitchName>LiveNetwork</SwitchName>
+        <vlan>400</vlan>
+        <VMPath>C:\Hyper-V\Win2025-2</VMPath>
+        <disks>
+            <disk>
+                <name>VHD.vhdx</name>
+                <SizeGB>127</SizeGB>
+            </disk>
+        </disks>
+        <cdroms>
+            <cdrom>
+                <name>CD-ROM 1</name>
+                <iso>C:\ISO\w2025-test.iso</iso>
+            </cdrom>
+            <cdrom>
+                <name>CD-ROM 2</name>
+                <iso>C:\ISO\Autounattend_2025.iso</iso>
+            </cdrom>
+        </cdroms>
+    </virtualmachine>
+</virtualmachines>
