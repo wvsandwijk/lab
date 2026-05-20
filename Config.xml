@@ -17,7 +17,7 @@
             </cdrom>
             <cdrom>
                 <name>CD-ROM 2</name>
-                <iso>C:\ISO\Autounattend_2025.iso</iso>
+                <iso>C:\ISO\Autounattend_core_2025.iso</iso>
             </cdrom>
         </cdroms>
     </virtualmachine>
