@@ -1,6 +1,7 @@
 <virtualmachines>
     <virtualmachine>
         <name>Win2025-1</name>
+        <description>Windows 2025 VM 1 (CORE)</description>
         <SwitchName>LiveNetwork</SwitchName>
         <vlan>400</vlan>
         <VMPath>C:\Hyper-V\Win2025-1</VMPath>
@@ -23,6 +24,7 @@
     </virtualmachine>
     <virtualmachine>
         <name>Win2025-2</name>
+        <description>Windows 2025 VM 2 (FULL)</description>
         <SwitchName>LiveNetwork</SwitchName>
         <vlan>400</vlan>
         <VMPath>C:\Hyper-V\Win2025-2</VMPath>

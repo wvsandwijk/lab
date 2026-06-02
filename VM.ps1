@@ -1,7 +1,8 @@
 [cmdletbinding()]
 Param (
     $Configuration,
-    [switch]$remove
+    [switch]$Remove,
+    [switch]$Select
 )
 
 # Function to get a random number from a range excluding certain values
@@ -39,11 +40,23 @@ function Get-RandomExcluding {
 
 [xml]$ConfigurationData = Get-Content $Configuration
 $VirtualMachines = $ConfigurationData.virtualmachines.virtualmachine
+
+if ($Select) {
+    $VMNames = $VirtualMachines
+    $SelectedVMs = $VMNames | Out-GridView -Title "Select Virtual Machines to Process" -PassThru
+    if (-not $SelectedVMs) {
+        log -Message "No virtual machines selected. Exiting." -Level "WARNING"
+        exit
+    }
+    $VirtualMachines = $selectedVMs
+    log -Message "Selected virtual machines: $($VirtualMachines.Name -join ', ')" -Level "INFO"
+}
+
 foreach ($VM in $VirtualMachines) {
-    if ($remove) {
+    if ($Remove) {
         if ((Get-vm $VM.name).State -ne 'stopped') {
             log -Message "Stopping VM: $($VM.Name)" -Level "INFO"
-            Stop-VM $VM.name -Force
+            Stop-VM $VM.name -TurnOff -Force
         }
         log -Message "Removing VM: $($VM.Name)" -Level "INFO"
         Remove-VM -Name $VM.Name -Force
@@ -66,6 +79,10 @@ foreach ($VM in $VirtualMachines) {
             log -Message "adding : $($cdrom.name)" -Level "INFO"
             $DVDLocation = (0..63 | Where-Object { $(($SCSIController).drives | Select-Object -ExpandProperty ControllerLocation) -notcontains $_ })[-1]
             Add-VMDvdDrive -VMName $VM.Name -Path $cdrom.ISO -ControllerNumber $SCSIController.ControllerNumber -ControllerLocation $DVDLocation -Verbose
+        }
+        if ($vm.vlan) {
+            log -Message "Adding network adapters to VM: $($VM.Name)" -Level "INFO"
+            set-VMNetworkAdapterVlan -VMName $VM.Name -Access -VlanId $vm.vlan
         }
 
         $DVDDrive = Get-VMDvdDrive -VMName $VM.Name | Sort-Object ControllerLocation -Descending | Select-Object -first 1
