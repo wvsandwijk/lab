@@ -2,11 +2,11 @@ $scripts = @(
     {
         # Create event log for automation and write an entry to indicate that the event log was created
 
-        New-Item -Path Registry::HKEY_LOCAL_MACHINE\SOFTWARE\$EventSource\$EventlogName -Force -ErrorAction 'SilentlyContinue';
+        New-Item         -Path Registry::HKEY_LOCAL_MACHINE\SOFTWARE\$EventSource\$EventlogName -Force -ErrorAction 'SilentlyContinue';
         New-ItemProperty -Path Registry::HKEY_LOCAL_MACHINE\SOFTWARE\$EventSource\$EventlogName -Name EventLogName -PropertyType String -Value $EventlogName -Force;
         New-ItemProperty -Path Registry::HKEY_LOCAL_MACHINE\SOFTWARE\$EventSource\$EventlogName -Name EventSource -PropertyType String -Value $EventSource -Force;
-        New-EventLog -LogName $EventlogName -Source $EventSource -ErrorAction  'SilentlyContinue';
-        Write-EventLog -LogName $EventlogName -Source $EventSource -EntryType Information -EventId 1 -Message "Created eventlog for automation`n`rEventlogname: $eventlogName`r`nEventSource: $EventSource";
+        New-EventLog     -LogName $EventlogName -Source $EventSource -ErrorAction  'SilentlyContinue';
+        Write-EventLog   -LogName $EventlogName -Source $EventSource -EntryType Information -EventId 1 -Message "Created eventlog for automation`n`rEventlogname: $eventlogName`r`nEventSource: $EventSource";
     };
     {
         # Create system environment variables for event log name and source to be used by other scripts

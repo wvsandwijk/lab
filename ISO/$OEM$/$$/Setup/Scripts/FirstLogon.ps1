@@ -50,6 +50,19 @@ $scripts = @(
         Write-EventLog -LogName $EventlogName -Source $EventSource -EntryType Information -EventId 1 -Message 'Added SSH public key to administrators_authorized_keys'
     };
     {
+        # Set OpenSSH default shell to PowerShell
+
+        $config = @{
+            Path         = "HKLM:\SOFTWARE\OpenSSH"
+            Name         = 'DefaultShell'
+            Value        = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+            PropertyType = 'String'
+            Force        = $true
+        }
+        New-ItemProperty @config -ErrorAction 'SilentlyContinue' | Out-Null
+        Write-EventLog -LogName $EventlogName -Source $EventSource -EntryType Information -EventId 1 -Message 'Set OpenSSH default shell to PowerShell'
+    };
+    {
         # Set Default lockscreen background and prevent users from changing it
 
         New-item -path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SystemProtectedUserData\S-1-5-18\AnyoneRead\LockScreen' -Force
