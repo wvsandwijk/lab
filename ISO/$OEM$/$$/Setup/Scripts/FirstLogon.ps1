@@ -63,24 +63,44 @@ $scripts = @(
         Write-EventLog -LogName $EventlogName -Source $EventSource -EntryType Information -EventId 1 -Message 'Set OpenSSH default shell to PowerShell'
     };
     {
+        # Set firewall rules to allow WinRM and OpenSSH traffic
+
+        $config = @{
+            DisplayName   = 'Allow SSH'
+            Name          = 'Allow SSH'
+            Profile       = 'Any'
+            LocalPort     = 22
+            Protocol      = 'TCP'
+            Action        = 'Allow'
+            ErrorAction   = 'SilentlyContinue'
+        }
+        
+        New-NetFirewallRule @config | Out-Null
+        Write-EventLog -LogName $EventlogName -Source $EventSource -EntryType Information -EventId 1 -Message 'Set firewall rules to allow SSH traffic'
+
+    };
+    {
         # Set Default lockscreen background and prevent users from changing it
 
-        New-item -path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SystemProtectedUserData\S-1-5-18\AnyoneRead\LockScreen' -Force
-        Set-ItemProperty -LiteralPath 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SystemProtectedUserData\S-1-5-18\AnyoneRead\LockScreen' -Name 'GPImagePath_P' -Type 'string' -Value $LockScreenImage -Force
+        if ($installtype -eq 'Server') {
+            # only installation type Server, because in Desktop installation type, the lockscreen is not used and the wallpaper is set by the user
+            New-item -path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SystemProtectedUserData\S-1-5-18\AnyoneRead\LockScreen' -Force
+            Set-ItemProperty -LiteralPath 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SystemProtectedUserData\S-1-5-18\AnyoneRead\LockScreen' -Name 'GPImagePath_P' -Type 'string' -Value $LockScreenImage -Force
 
-        New-item -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Force
-        Set-ItemProperty -LiteralPath 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'LockScreenImage' -Type 'string' -Value $LockScreenImage -Force
-        Set-ItemProperty -LiteralPath 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'LockScreenOverlaysDisabled' -Type 'DWord' -Value 1 -Force
-        Set-ItemProperty -LiteralPath 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'NoChangingLockScreen' -Type 'DWord' -Value 1 -Force
+            New-item -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Force
+            Set-ItemProperty -LiteralPath 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'LockScreenImage' -Type 'string' -Value $LockScreenImage -Force
+            Set-ItemProperty -LiteralPath 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'LockScreenOverlaysDisabled' -Type 'DWord' -Value 1 -Force
+            Set-ItemProperty -LiteralPath 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'NoChangingLockScreen' -Type 'DWord' -Value 1 -Force
 
-        New-item -path 'Registry::HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Policies\System' -Force
-        Set-ItemProperty -LiteralPath 'Registry::HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'Wallpaper' -Value $LockScreenImage -Force
-        Set-ItemProperty -LiteralPath 'Registry::HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'WallpaperStyle' -Type 'DWord' -Value 2 -Force
+            New-item -path 'Registry::HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Policies\System' -Force
+            Set-ItemProperty -LiteralPath 'Registry::HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'Wallpaper' -Value $LockScreenImage -Force
+            Set-ItemProperty -LiteralPath 'Registry::HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'WallpaperStyle' -Type 'DWord' -Value 2 -Force
 
-        New-item -Path 'Registry::HKEY_USERS\.DEFAULT\Control Panel\Desktop' -Force
-        Set-ItemProperty -LiteralPath 'Registry::HKEY_USERS\.DEFAULT\Control Panel\Desktop' -Name 'Wallpaper' -Value $LockScreenImage -Force
+            New-item -Path 'Registry::HKEY_USERS\.DEFAULT\Control Panel\Desktop' -Force
+            Set-ItemProperty -LiteralPath 'Registry::HKEY_USERS\.DEFAULT\Control Panel\Desktop' -Name 'Wallpaper' -Value $LockScreenImage -Force
 
-        Write-EventLog -LogName $EventlogName -Source $EventSource -EntryType Information -EventId 1 -Message 'Set default lockscreen background and prevented users from changing it'
+            Write-EventLog -LogName $EventlogName -Source $EventSource -EntryType Information -EventId 1 -Message 'Set default lockscreen background and prevented users from changing it'
+        }
     };
     {
         # Run gpupdate /force to apply group policies immediately
@@ -91,7 +111,7 @@ $scripts = @(
     {
         # Eject all CD-ROM drives to prevent the system from trying to boot from the installation media on next logon
 
-        Get-CimInstance -Class Win32_CDROMDrive | ForEach-Object { $_.Eject() }
+        New-Object -comObject Shell.Application | ForEach-Object { namespace(17).items() | ? type -eq 'CD Drive' | ForEach-Object { $_.InvokeVerb("Eject") } }
         Write-EventLog -LogName $EventlogName -Source $EventSource -EntryType Information -EventId 1 -Message 'Ejected all CD-ROM drives'
     };
     {
@@ -118,6 +138,7 @@ $scripts = @(
     [String]$EventlogName = $env:AutomationEventLogName;
     [String]$EventSource = $env:AutomationEventSource;
     [string]$LockScreenImage = 'C:\ProgramData\LAWN Automation\LAWNAutomationLogonLock.png';
+    [string]$installtype = (Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows NT\CurrentVersion" -Name InstallationType).InstallationType;
 
     foreach ( $Script in $Scripts ) {
         #Write-Progress -Id 0 -Activity 'Running scripts to finalize your Windows installation. Do not close this window.' -PercentComplete $Complete;
