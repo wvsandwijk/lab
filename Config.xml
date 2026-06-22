@@ -1,48 +1,64 @@
-<virtualmachines>
+<virtualmachines path="C:\Hyper-V">
     <virtualmachine>
         <name>Win2025-1</name>
         <description>Windows 2025 VM 1 (CORE)</description>
         <SwitchName>LiveNetwork</SwitchName>
-        <vlan>400</vlan>
-        <VMPath>C:\Hyper-V\Win2025-1</VMPath>
+        <vlan/>
+        <Path>C:\Hyper-V</Path>
         <disks>
-            <disk>
-                <name>VHD.vhdx</name>
-                <SizeGB>127</SizeGB>
-            </disk>
+            <disk number="0" name="OS" SizeGB="127"/>
+            <disk number="1" name="D" SizeGB="10"/>
+            <disk number="2" name="E" SizeGB="10"/>
         </disks>
         <cdroms>
-            <cdrom>
-                <name>CD-ROM 1</name>
-                <iso>C:\ISO\w2025-test.iso</iso>
-            </cdrom>
-            <cdrom>
-                <name>CD-ROM 2</name>
-                <iso>C:\ISO\Autounattend_core_2025.iso</iso>
-            </cdrom>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_core_2025.iso"/>
         </cdroms>
     </virtualmachine>
     <virtualmachine>
         <name>Win2025-2</name>
         <description>Windows 2025 VM 2 (FULL)</description>
         <SwitchName>LiveNetwork</SwitchName>
-        <vlan>400</vlan>
-        <VMPath>C:\Hyper-V\Win2025-2</VMPath>
+        <vlan/>
+        <Path>C:\Hyper-V</Path>
         <disks>
-            <disk>
-                <name>VHD.vhdx</name>
-                <SizeGB>127</SizeGB>
-            </disk>
+            <disk number="0" name="OS" SizeGB="127"/>
         </disks>
         <cdroms>
-            <cdrom>
-                <name>CD-ROM 1</name>
-                <iso>C:\ISO\w2025-test.iso</iso>
-            </cdrom>
-            <cdrom>
-                <name>CD-ROM 2</name>
-                <iso>C:\ISO\Autounattend_gui_2025.iso</iso>
-            </cdrom>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
+        </cdroms>
+    </virtualmachine>
+    <virtualmachine>
+        <name>Win2025-3</name>
+        <description>Windows 2025 VM 3 (CORE)</description>
+        <SwitchName>LiveNetwork</SwitchName>
+        <vlan/>
+        <Path>C:\Hyper-V</Path>
+        <disks>
+            <disk number="0" name="OS" SizeGB="127"/>
+            <disk number="1" name="D" SizeGB="10"/>
+            <disk number="2" name="E" SizeGB="5"/>
+        </disks>
+        <cdroms>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_core_2025.iso"/>
+        </cdroms>
+    </virtualmachine>
+    <virtualmachine>
+        <name>Win2025-DC</name>
+        <description>Windows 2025 Domain Controller</description>
+        <SwitchName>LiveNetwork</SwitchName>
+        <vlan/>
+        <Path>C:\Hyper-V</Path>
+        <disks>
+            <disk number="0" name="OS" SizeGB="127"/>
+            <disk number="1" name="D" SizeGB="10"/>
+            <disk number="2" name="E" SizeGB="5"/>
+        </disks>
+        <cdroms>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
         </cdroms>
     </virtualmachine>
 </virtualmachines>
