@@ -1,0 +1,25 @@
+version: '3.8'
+networks:
+  nexus-net:
+    driver: bridge
+    driver_opts:
+      "com.docker.network.bridge.name": "bridge"
+
+services:
+ nexus:
+  image: sonatype/nexus3:latest
+  container_name: nexus
+  ports:
+   - "8081:8081"
+   - "8443:8443"
+  volumes:
+   - /volume1/docker/nexus3/nexus-data:nexus-data
+  networks:
+    - nexus-net
+  environment:
+   INSTALL4J_ADD_VM_PARAMS: "-Xms2703m -Xmx2703m -XX:MaxDirectMemorySize=2703m"
+  restart: always
+
+volumes:
+ nexus-data:
+  driver: local
