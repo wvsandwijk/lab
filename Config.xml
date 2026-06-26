@@ -1,4 +1,4 @@
-<virtualmachines path="C:\Hyper-V">
+<virtualmachines>
     <virtualmachine name = "Win2025-1">
         <description>Windows 2025 VM 1 (CORE)</description>
         <SwitchName>LiveNetwork</SwitchName>
@@ -61,7 +61,7 @@
         <description>Windows 2025 Domain Controller PRD 001</description>
         <SwitchName>LiveNetwork</SwitchName>
         <vlan>3</vlan>
-        <Path>C:\Hyper-V/LAB</Path>
+        <Path>E:\HYPER-V\LAB</Path>
         <disks>
             <disk number="0" name="OS" SizeGB="127"/>
             <disk number="1" name="D" SizeGB="10"/>
@@ -76,22 +76,22 @@
         <description>Windows 2025 Domain Controller DMZ RWDC</description>
         <SwitchName>LiveNetwork</SwitchName>
         <vlan>3</vlan>
-        <Path>C:\Hyper-V/LAB</Path>
+        <Path>E:\HYPER-V\LAB</Path>
         <disks>
             <disk number="0" name="OS" SizeGB="127"/>
             <disk number="1" name="D" SizeGB="10"/>
             <disk number="2" name="E" SizeGB="5"/>
         </disks>
         <cdroms>
-            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
-            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
+            <cdrom number="1" name="InstallMedia" iso="E:\ISO2\w2025.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="E:\ISO2\Autounattend_gui_2025.iso"/>
         </cdroms>
     </virtualmachine>
     <virtualmachine name="WDDMZ-R01">
         <description>Windows 2025 Domain Controller DMZ RODC</description>
         <SwitchName>LiveNetwork</SwitchName>
         <vlan>3</vlan>
-        <Path>C:\Hyper-V/LAB</Path>
+        <Path>E:\HYPER-V\LAB</Path>
         <disks>
             <disk number="0" name="OS" SizeGB="127"/>
             <disk number="1" name="D" SizeGB="10"/>

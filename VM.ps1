@@ -79,7 +79,6 @@ begin {
     }
 
     [xml]$ConfigurationData = Get-Content $Configuration
-    $VirtualMachinesPath = $ConfigurationData.virtualmachines.path
     $VirtualMachines = $ConfigurationData.virtualmachines.virtualmachine
 
 }
@@ -121,7 +120,7 @@ process {
         else {
         #Create the VM
             log -Message "Creating VM: $($VM.Name)" -Level "INFO"
-            $newvm = New-VM -Name $VM.Name -Generation 2 -MemoryStartupBytes 4096MB -SwitchName $VM.SwitchName -Path $VirtualMachinesPath -NoVHD
+            $newvm = New-VM -Name $VM.Name -Generation 2 -MemoryStartupBytes 4096MB -SwitchName $VM.SwitchName -Path $VM.Path -NoVHD
         # Create the VHDX files with the specified size and block size, and add it to the VM
             log -Message "Creating virtual disks for VM: $($VM.Name)" -Level "INFO"
             foreach ($disk in $($VM.disks.disk | Sort-object disknumber)) {
