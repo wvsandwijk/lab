@@ -123,7 +123,7 @@ process {
             $newvm = New-VM -Name $VM.Name -Generation 2 -MemoryStartupBytes 4096MB -SwitchName $VM.SwitchName -Path $VM.Path -NoVHD
         # Create the VHDX files with the specified size and block size, and add it to the VM
             log -Message "Creating virtual disks for VM: $($VM.Name)" -Level "INFO"
-            foreach ($disk in $($VM.disks.disk | Sort-object disknumber)) {
+            foreach ($disk in $($VM.disks.disk | Sort-object number)) {
                 $VHDPath = "$(($newvm).path)\Virtual Hard Disks\$($disk.Name).vhdx"
                 New-VHD -Path $VHDPath -SizeBytes ([int]$disk.SizeGB * 1GB) -BlockSizeBytes 1MB -Dynamic | Out-null
                 Add-VMHardDiskDrive -VMName $VM.Name -Path $VHDPath
