@@ -102,4 +102,49 @@
             <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
         </cdroms>
     </virtualmachine>
+    <virtualmachine name="WDTEST-001">
+        <description>Windows 2025 Domain Controller TEST</description>
+        <SwitchName>LiveNetwork</SwitchName>
+        <vlan>3</vlan>
+        <Path>E:\HYPER-V\LAB</Path>
+        <disks>
+            <disk number="0" name="OS" SizeGB="127"/>
+            <disk number="1" name="D" SizeGB="10"/>
+            <disk number="2" name="E" SizeGB="5"/>
+        </disks>
+        <cdroms>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
+        </cdroms>
+    </virtualmachine>
+    <virtualmachine name="WDDEV-001">
+        <description>Windows 2025 Domain Controller TEST</description>
+        <SwitchName>LiveNetwork</SwitchName>
+        <vlan>3</vlan>
+        <Path>E:\HYPER-V\LAB</Path>
+        <disks>
+            <disk number="0" name="OS" SizeGB="127"/>
+            <disk number="1" name="D" SizeGB="10"/>
+            <disk number="2" name="E" SizeGB="5"/>
+        </disks>
+        <cdroms>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
+        </cdroms>
+    </virtualmachine>
+    <virtualmachine name="WDCONFIG-001">
+        <description>Windows 2025 Domain Controller TEST</description>
+        <SwitchName>LiveNetwork</SwitchName>
+        <vlan>3</vlan>
+        <Path>E:\HYPER-V\LAB</Path>
+        <disks>
+            <disk number="0" name="OS" SizeGB="127"/>
+            <disk number="1" name="D" SizeGB="10"/>
+            <disk number="2" name="E" SizeGB="5"/>
+        </disks>
+        <cdroms>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
+        </cdroms>
+    </virtualmachine>
 </virtualmachines>
