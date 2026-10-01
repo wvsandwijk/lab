@@ -120,7 +120,7 @@ process {
         else {
         #Create the VM
             log -Message "Creating VM: $($VM.Name)" -Level "INFO"
-            $newvm = New-VM -Name $VM.Name -Generation 2 -MemoryStartupBytes 4096MB -SwitchName $VM.SwitchName -Path $VM.Path -NoVHD
+            $newvm = New-VM -Name $VM.Name -Generation 2 -MemoryStartupBytes 4096MB -SwitchName $VM.SwitchName -Path $VM.Path -NoVHD -d
         # Create the VHDX files with the specified size and block size, and add it to the VM
             log -Message "Creating virtual disks for VM: $($VM.Name)" -Level "INFO"
             foreach ($disk in $($VM.disks.disk | Sort-object number)) {
@@ -131,7 +131,7 @@ process {
             }
         # Configure the VM
             log -Message "Configuring VM: $($VM.Name)" -Level "INFO"
-            Set-VM -Name $VM.Name -ProcessorCount 2 -CheckpointType Production -AutomaticCheckpointsEnabled $false -SnapshotFileLocation "$($newvm.Path)\Snapshot"
+            Set-VM -Name $VM.Name -ProcessorCount 2 -CheckpointType Production -AutomaticCheckpointsEnabled $false -SnapshotFileLocation "$($newvm.Path)\Snapshot" -notes $vm.description
             log -Message "Set processor count to 2, checkpoint type to Production, and disabled automatic checkpoints for VM: $($VM.Name)" -Level "INFO"
 
         # Adding CD-ROM drives to the VM
