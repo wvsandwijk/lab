@@ -1,150 +1,150 @@
 <virtualmachines>
-    <virtualmachine name = "Win2025-1">
-        <description>Windows 2025 VM 1 (CORE)</description>
+    <virtualmachine name = "WDPLAWN-001">
+        <description>Windows 2025 Domain Controller RWDC</description>
+        <domainFQDN>LAWNAutomation.LAB</domainFQDN>
+        <domain>LAWNAUTO</domain>
         <SwitchName>LiveNetwork</SwitchName>
-        <vlan/>
-        <Path>C:\Hyper-V</Path>
+        <vlan>3</vlan>
+        <Path>E:\HYPER-V\LAB</Path>
         <disks>
             <disk number="0" name="OS" SizeGB="127"/>
             <disk number="1" name="D" SizeGB="10"/>
             <disk number="2" name="E" SizeGB="10"/>
         </disks>
         <cdroms>
-            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025-26100.32230.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
+        </cdroms>
+    </virtualmachine>
+    <virtualmachine name = "WSPLAWN-001">
+        <description>Windows 2025 Management Server</description>
+        <SwitchName>LiveNetwork</SwitchName>
+        <vlan>3</vlan>
+        <Path>E:\HYPER-V\LAB</Path>
+        <disks>
+            <disk number="0" name="OS" SizeGB="127"/>
+            <disk number="1" name="D" SizeGB="10"/>
+            <disk number="2" name="E" SizeGB="10"/>
+        </disks>
+        <cdroms>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025-26100.32230.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
+        </cdroms>
+    </virtualmachine>
+    <virtualmachine name = "WSPLAWN-002">
+        <description>Windows 2025 GPOAdmin SQL Server</description>
+        <SwitchName>LiveNetwork</SwitchName>
+        <vlan>3</vlan>
+        <Path>E:\HYPER-V\LAB</Path>
+        <disks>
+            <disk number="0" name="OS" SizeGB="127"/>
+            <disk number="1" name="D" SizeGB="10"/>
+            <disk number="2" name="E" SizeGB="5"/>
+        </disks>
+        <cdroms>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025-26100.32230.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
+        </cdroms>
+    </virtualmachine>
+    <virtualmachine name = "WSPLAWN-003">
+        <description>Windows 2025 GPOAdmin Server</description>
+        <SwitchName>LiveNetwork</SwitchName>
+        <vlan>3</vlan>
+        <Path>E:\HYPER-V\LAB</Path>
+        <disks>
+            <disk number="0" name="OS" SizeGB="127"/>
+            <disk number="1" name="D" SizeGB="10"/>
+            <disk number="2" name="E" SizeGB="5"/>
+        </disks>
+        <cdroms>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025-26100.32230.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
+        </cdroms>
+    </virtualmachine>
+    <virtualmachine name = "WSPLAWN-004">
+        <description>Windows 2025 SQL Server</description>
+        <SwitchName>LiveNetwork</SwitchName>
+        <vlan>3</vlan>
+        <Path>E:\HYPER-V\LAB</Path>
+        <disks>
+            <disk number="0" name="OS" SizeGB="127"/>
+            <disk number="1" name="T" SizeGB="50"/>
+            <disk number="2" name="E" SizeGB="50"/>
+            <disk number="3" name="F" SizeGB="50"/>
+        </disks>
+        <cdroms>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025-26100.32230.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
+        </cdroms>
+    </virtualmachine>
+    <virtualmachine name = "WSPLAWN-005">
+        <description>Windows 2025 Test Machine</description>
+        <SwitchName>LiveNetwork</SwitchName>
+        <vlan>3</vlan>
+        <Path>E:\HYPER-V\LAB</Path>
+        <disks>
+            <disk number="0" name="OS" SizeGB="127"/>
+            <disk number="1" name="D" SizeGB="50"/>
+        </disks>
+        <cdroms>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025-26100.32230.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
+        </cdroms>
+    </virtualmachine>
+    <virtualmachine name = "WSPLAWN-PKIRoot">
+        <description>Windows 2025 PKI Root Server</description>
+        <SwitchName>LiveNetwork</SwitchName>
+        <vlan>3</vlan>
+        <Path>E:\HYPER-V\LAB</Path>
+        <disks>
+            <disk number="0" name="OS" SizeGB="127"/>
+            <disk number="1" name="D" SizeGB="50"/>
+        </disks>
+        <cdroms>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025-26100.32230.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
+        </cdroms>
+    </virtualmachine>
+    <virtualmachine name = "WSPLAWN-PKIrCA">
+        <description>Windows 2025 PKI Root Server</description>
+        <SwitchName>LiveNetwork</SwitchName>
+        <vlan>3</vlan>
+        <Path>E:\HYPER-V\LAB</Path>
+        <disks>
+            <disk number="0" name="OS" SizeGB="127"/>
+            <disk number="1" name="D" SizeGB="50"/>
+        </disks>
+        <cdroms>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025-26100.32230.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
+        </cdroms>
+    </virtualmachine>
+    <virtualmachine name = "WSPLAWN-PKIiCA">
+        <description>Windows 2025 PKI Issuing CA Server</description>
+        <SwitchName>LiveNetwork</SwitchName>
+        <vlan>3</vlan>
+        <Path>E:\HYPER-V\LAB</Path>
+        <disks>
+            <disk number="0" name="OS" SizeGB="127"/>
+            <disk number="1" name="D" SizeGB="50"/>
+        </disks>
+        <cdroms>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025-26100.32230.iso"/>
             <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_core_2025.iso"/>
         </cdroms>
     </virtualmachine>
-    <virtualmachine name = "Win2025-2">
-        <description>Windows 2025 VM 2 (FULL)</description>
-        <SwitchName>LiveNetwork</SwitchName>
-        <vlan/>
-        <Path>C:\Hyper-V</Path>
-        <disks>
-            <disk number="0" name="OS" SizeGB="127"/>
-        </disks>
-        <cdroms>
-            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
-            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
-        </cdroms>
-    </virtualmachine>
-    <virtualmachine name = "Win2025-3">
-        <description>Windows 2025 VM 3 (CORE)</description>
-        <SwitchName>LiveNetwork</SwitchName>
-        <vlan/>
-        <Path>C:\Hyper-V</Path>
-        <disks>
-            <disk number="0" name="OS" SizeGB="127"/>
-            <disk number="1" name="D" SizeGB="10"/>
-            <disk number="2" name="E" SizeGB="5"/>
-        </disks>
-        <cdroms>
-            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
-            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
-        </cdroms>
-    </virtualmachine>
-    <virtualmachine name = "Win2025-DC">
-        <description>Windows 2025 Domain Controller</description>
-        <SwitchName>LiveNetwork</SwitchName>
-        <vlan/>
-        <Path>C:\Hyper-V</Path>
-        <disks>
-            <disk number="0" name="OS" SizeGB="127"/>
-            <disk number="1" name="D" SizeGB="10"/>
-            <disk number="2" name="E" SizeGB="5"/>
-        </disks>
-        <cdroms>
-            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
-            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
-        </cdroms>
-    </virtualmachine>
-    <virtualmachine name="WDPRD-001">
-        <description>Windows 2025 Domain Controller PRD 001</description>
+    <virtualmachine name = "WSPLAWN-PKIweb">
+        <description>Windows 2025 PKI Web Server</description>
         <SwitchName>LiveNetwork</SwitchName>
         <vlan>3</vlan>
         <Path>E:\HYPER-V\LAB</Path>
         <disks>
             <disk number="0" name="OS" SizeGB="127"/>
-            <disk number="1" name="D" SizeGB="10"/>
-            <disk number="2" name="E" SizeGB="5"/>
+            <disk number="1" name="D" SizeGB="50"/>
         </disks>
         <cdroms>
-            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
-            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
-        </cdroms>
-    </virtualmachine>
-    <virtualmachine name="WDDMZ-001">
-        <description>Windows 2025 Domain Controller DMZ RWDC</description>
-        <SwitchName>LiveNetwork</SwitchName>
-        <vlan>3</vlan>
-        <Path>E:\HYPER-V\LAB</Path>
-        <disks>
-            <disk number="0" name="OS" SizeGB="127"/>
-            <disk number="1" name="D" SizeGB="10"/>
-            <disk number="2" name="E" SizeGB="5"/>
-        </disks>
-        <cdroms>
-            <cdrom number="1" name="InstallMedia" iso="E:\ISO2\w2025.iso"/>
-            <cdrom number="2" name="UnattendMedia" iso="E:\ISO2\Autounattend_gui_2025.iso"/>
-        </cdroms>
-    </virtualmachine>
-    <virtualmachine name="WDDMZ-R01">
-        <description>Windows 2025 Domain Controller DMZ RODC</description>
-        <SwitchName>LiveNetwork</SwitchName>
-        <vlan>3</vlan>
-        <Path>E:\HYPER-V\LAB</Path>
-        <disks>
-            <disk number="0" name="OS" SizeGB="127"/>
-            <disk number="1" name="D" SizeGB="10"/>
-            <disk number="2" name="E" SizeGB="5"/>
-        </disks>
-        <cdroms>
-            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
-            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
-        </cdroms>
-    </virtualmachine>
-    <virtualmachine name="WDTEST-001">
-        <description>Windows 2025 Domain Controller TEST</description>
-        <SwitchName>LiveNetwork</SwitchName>
-        <vlan>3</vlan>
-        <Path>E:\HYPER-V\LAB</Path>
-        <disks>
-            <disk number="0" name="OS" SizeGB="127"/>
-            <disk number="1" name="D" SizeGB="10"/>
-            <disk number="2" name="E" SizeGB="5"/>
-        </disks>
-        <cdroms>
-            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
-            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
-        </cdroms>
-    </virtualmachine>
-    <virtualmachine name="WDDEV-001">
-        <description>Windows 2025 Domain Controller TEST</description>
-        <SwitchName>LiveNetwork</SwitchName>
-        <vlan>3</vlan>
-        <Path>E:\HYPER-V\LAB</Path>
-        <disks>
-            <disk number="0" name="OS" SizeGB="127"/>
-            <disk number="1" name="D" SizeGB="10"/>
-            <disk number="2" name="E" SizeGB="5"/>
-        </disks>
-        <cdroms>
-            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
-            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
-        </cdroms>
-    </virtualmachine>
-    <virtualmachine name="WDCONFIG-001">
-        <description>Windows 2025 Domain Controller TEST</description>
-        <SwitchName>LiveNetwork</SwitchName>
-        <vlan>3</vlan>
-        <Path>E:\HYPER-V\LAB</Path>
-        <disks>
-            <disk number="0" name="OS" SizeGB="127"/>
-            <disk number="1" name="D" SizeGB="10"/>
-            <disk number="2" name="E" SizeGB="5"/>
-        </disks>
-        <cdroms>
-            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025.iso"/>
-            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_gui_2025.iso"/>
+            <cdrom number="1" name="InstallMedia" iso="C:\ISO\w2025-26100.32230.iso"/>
+            <cdrom number="2" name="UnattendMedia" iso="C:\ISO\Autounattend_core_2025.iso"/>
         </cdroms>
     </virtualmachine>
 </virtualmachines>
